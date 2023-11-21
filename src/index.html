@@ -6,16 +6,15 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
 <div class="page__content">
   <header class="header page__section">
-    <img src="./images/logo.svg" alt="Логотип проекта масто" class="logo header__logo">
+    <img src="<%=require('./images/logo.svg')%>" alt="Логотип проекта масто" class="logo header__logo">
   </header>
   <main class="content">
     <section class="profile page__section">
-      <div class="profile__image" style="background-image: url('./images/avatar.jpg');"></div>
+      <div class="profile__image" style="background-image: url('<%=require('./images/avatar.jpg')%>')"></div>
       <div class="profile__info">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <button class="profile__edit-button" type="button"></button>
@@ -40,7 +39,6 @@
       <form class="popup__form" name="edit-profile">
         <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" required>
         <input type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" required>
-        <!--Можно добавить required, они про него знают-->
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -64,16 +62,11 @@
     </div>
   </div>
 </div>
-<script src="./scripts/cards.js"></script>
-<script src="./scripts/index.js" defer></script>
 
-<!--Относится к реализации 4-го спринта-->
 <template id="card-template">
-  <!--Про тег темплейт студенты узнают из уроков 4-го спринта-->
   <li class="places__item card">
     <img class="card__image" src="" alt="" />
     <button type="button" class="card__delete-button"></button>
-    <!--Фоновое, инлайном-->
     <div class="card__description">
       <h2 class="card__title">
       </h2>
