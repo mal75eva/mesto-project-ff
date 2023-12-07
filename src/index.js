@@ -1,8 +1,8 @@
 import './pages/index.css';
 import { initialCards } from './components/cards.js';
 import { createCard, deleteCard, likeCard } from './components/card.js';
-import  { openModalWindow, closeModalWindow } from './components/modal.js'
-
+import  { openModalWindow, closeModalWindow } from './components/modal.js';
+import { enableValidation, clearValidation } from './components/validation.js';
 
 // DOM узлы  карточки
 
@@ -33,6 +33,17 @@ const formElementNewCard = document.forms['new-place'];
 const placeNameInput = formElementNewCard.elements['place-name'];
 const linkInput = formElementNewCard.elements.link;
 
+// Валидация
+
+const validationObject = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
 // Вывести карточки на страницу
 
 initialCards.forEach(function(cardItem) {
@@ -46,10 +57,12 @@ profileEditButton.addEventListener('click', function() {
   nameInput.value = profileTitle.textContent; 
   jobInput.value = profileDescription.textContent; 
 
+  clearValidation(formElementEditProfile, validationObject);
   openModalWindow(popupTypeEdit);
 });
 
 profileAddButton.addEventListener('click', function() {
+  clearValidation(formElementNewCard, validationObject);
   openModalWindow(popupTypeNewCard);
 });
 
@@ -107,3 +120,7 @@ const popups = [popupTypeEdit, popupTypeNewCard, popupTypeImage]
 popups.forEach(function(popupElement){
   popupElement.classList.add('popup_is-animated');
 });
+
+// Вызов функции валидации
+
+enableValidation(validationObject); 
