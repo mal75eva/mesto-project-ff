@@ -1,170 +1,112 @@
+//Конфиг
+
+const config = {
+    baseUrl: "https://mesto.nomoreparties.co/v1/wff-cohort-2",
+    headers: {
+        authorization: "00a50603-3b89-411f-9cf8-279a0dd3be9f",
+        "Content-Type": "application/json",
+    },
+};
+
+//Результат запроса
+
+function getResult(res) {
+    if (res.ok) {
+        return res.json();
+    } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+}
+
 //Загрузка информации о пользователе с сервера
 
- function getUserData() {
-    return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-2/users/me', {
-        method: 'GET',
-        headers: {
-            authorization: '00a50603-3b89-411f-9cf8-279a0dd3be9f',
-            'Content-Type': 'application/json'
-        },
+function getUserData() {
+    return fetch(`${config.baseUrl}/users/me`, {
+        method: "GET",
+        headers: config.headers,
     })
-    .then((res) => {
-        if(res.ok) {
-            return res.json();
-        }
-        else {
-            return Promise.reject(`Ошибка: ${res.status}`)
-        }
-    })
- }
+    .then(getResult);
+}
 
 // Загрузка карточек с сервера
 
 function getInitialCards() {
-    return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-2/cards', {
-        method: 'GET',
-        headers: {
-            authorization: '00a50603-3b89-411f-9cf8-279a0dd3be9f',
-            'Content-Type': 'application/json'
-        }
+    return fetch(`${config.baseUrl}/cards`, {
+        method: "GET",
+        headers: config.headers,
     })
-    .then((res) => {
-        if(res.ok) {
-            return res.json();
-        }
-        else {
-            return Promise.reject(`Ошибка: ${res.status}`)
-        }
-    })
+    .then(getResult);
 }
 
 // Редактирование профиля
 
 function editProfileData(profileName, profileJob) {
-    return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-2/users/me', {
-        method: 'PATCH',
-        headers: {
-            authorization: '00a50603-3b89-411f-9cf8-279a0dd3be9f',
-            'Content-Type': 'application/json'
-        },
+    return fetch(`${config.baseUrl}/users/me`, {
+        method: "PATCH",
+        headers: config.headers,
         body: JSON.stringify({
             name: profileName,
             about: profileJob,
-          })
+        }),
     })
-    .then((res) => {
-        if(res.ok) {
-            return res.json();
-        }
-        else {
-            return Promise.reject(`Ошибка: ${res.status}`)
-        }
-    })
+    .then(getResult);
 }
 
 // Добавление новой карточки
 
 function addNewCard(cardName, cardLink) {
-    return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-2/cards', {
-        method: 'POST',
-        headers: {
-            authorization: '00a50603-3b89-411f-9cf8-279a0dd3be9f',
-            'Content-Type': 'application/json'
-        },
+    return fetch(`${config.baseUrl}/cards`, {
+        method: "POST",
+        headers: config.headers,
         body: JSON.stringify({
             name: cardName,
-            link: cardLink
-          })
+            link: cardLink,
+        }),
     })
-    .then((res) => {
-        if(res.ok) {
-            return res.json();
-        }
-        else {
-            return Promise.reject(`Ошибка: ${res.status}`)
-        }
-    })
+    .then(getResult);
 }
 
 // Удаление карточки
 
 function deleteCard(cardId) {
-    return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-2/cards/${cardId}`, {
-        method: 'DELETE',
-        headers: {
-            authorization: '00a50603-3b89-411f-9cf8-279a0dd3be9f',
-            'Content-Type': 'application/json'
-        }
+    return fetch(`${config.baseUrl}/cards/${cardId}`, {
+        method: "DELETE",
+        headers: config.headers,
     })
-    .then((res) => {
-        if(res.ok) {
-            return res.json();
-        }
-        else {
-            return Promise.reject(`Ошибка: ${res.status}`)
-        }
-    })
+    .then(getResult);
 }
 
 // Постановка лайка
 
 function likeCard(cardId) {
-    return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-2/cards/likes/${cardId}`, {
-        method: 'PUT',
-        headers: {
-            authorization: '00a50603-3b89-411f-9cf8-279a0dd3be9f',
-            'Content-Type': 'application/json'
-        }
+    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+        method: "PUT",
+        headers: config.headers,
     })
-    .then((res) => {
-        if(res.ok) {
-            return res.json();
-        }
-        else {
-            return Promise.reject(`Ошибка: ${res.status}`)
-        }
-    })
+    .then(getResult);
 }
 
 // Удаление лайка
 
 function dislikeCard(cardId) {
-    return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-2/cards/likes/${cardId}`, {
-        method: 'DELETE',
-        headers: {
-            authorization: '00a50603-3b89-411f-9cf8-279a0dd3be9f',
-            'Content-Type': 'application/json'
-        }
+    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+        method: "DELETE",
+        headers: config.headers,
     })
-    .then((res) => {
-        if(res.ok) {
-            return res.json();
-        }
-        else {
-            return Promise.reject(`Ошибка: ${res.status}`)
-        }
-    })
+    .then(getResult);
 }
+
+// Обновление аватара
 
 function updateAvatar(url) {
-    return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-2/users/me/avatar', {
-        method: 'PATCH',
-        headers: {
-            authorization: '00a50603-3b89-411f-9cf8-279a0dd3be9f',
-            'Content-Type': 'application/json'
-        },
+    return fetch(`${config.baseUrl}/users/me/avatar`, {
+        method: "PATCH",
+        headers: config.headers,
         body: JSON.stringify({
-            avatar: url
-          })
+            avatar: url,
+        }),
     })
-    .then((res) => {
-        if(res.ok) {
-            return res.json();
-        }
-        else {
-            return Promise.reject(`Ошибка: ${res.status}`)
-        }
-    })
+    .then(getResult);
 }
 
-export { getUserData, getInitialCards, editProfileData, addNewCard, deleteCard, likeCard, dislikeCard, updateAvatar }
+export { getUserData, getInitialCards, editProfileData, addNewCard, deleteCard, likeCard, dislikeCard, updateAvatar };
